@@ -1,0 +1,35 @@
+services:
+  - type: web
+    name: gammax-v5-pro
+    runtime: node
+    plan: starter
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: HOST
+        value: 0.0.0.0
+      - key: DEFAULT_INDEX
+        value: NIFTY
+      - key: FAILOVER_STANDBY
+        value: "false"
+      - key: ENABLE_MARKET_SNAPSHOTS
+        value: "true"
+      - key: SNAPSHOT_INTERVAL_MS
+        value: "1000"
+      - key: SNAPSHOT_DIR
+        value: /var/data/gammax-snapshots
+      - key: SNAPSHOT_RETENTION_DAYS
+        value: "30"
+      - key: SNAPSHOT_OPTION_STRIKES_EACH_SIDE
+        value: "10"
+      - key: SNAPSHOT_MARKET_HOURS_ONLY
+        value: "true"
+    disk:
+      name: gammax-market-snapshots
+      mountPath: /var/data
+      sizeGB: 10
